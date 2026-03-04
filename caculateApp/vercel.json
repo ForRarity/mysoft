@@ -1,12 +1,28 @@
 {
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "devCommand": null,
-  "installCommand": null,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/build/h5"
+      }
+    }
+  ],
   "routes": [
     {
-      "src": "/main.js",
-      "dest": "/main.js"
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
